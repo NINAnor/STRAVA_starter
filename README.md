@@ -12,8 +12,8 @@ The aim of this repository is to provide reproducible scripts that allow NINA co
 
 ### Scope of the scripts and analysis
 * NB!! - this is focussed on the "legacy" STRAVA dataset (anything before March 2020) which is stored on NINA R:\ server
-  * For data after that point, you need to download from the STRAVA Metro dashboard and analyse differently
-  * The Dashbaord solution has different column names, and also includes sex, age etc.
+  * For data after that point, you need to download from the STRAVA Metro dashboard (https://metroview.strava.com/) and analyse differently
+  * The dashbaord solution has different column names, and temporal aggregation procedures, and is therefore difficult to harmonize with legacy data. It also includes sex, age etc.
 * Focuses on the monthly STRAVA rollups for 2019 (i.e. excludes annual rollups, hourly data, or origin-destination data)
 * Focuses on total activity for pedestrian and cycling categories (i.e. excludes athlete counts, leisure vs commute, activity times, revers vs forward direction)
 * Focuses on temporal aggregation (i.e. does not explore time series beyond 1 year long)
