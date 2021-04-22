@@ -27,6 +27,7 @@ The aim of this repository is to provide reproducible scripts that allow NINA co
 ### Workflow
 * Download this entire repository and open up the "STRAVA_R_starter.Rproj" file from RStudio server
 * Create a shapefile outlining your area of interest (AOI) and upload to './DATA/' folder
+  * I have placed a Shapefile to start with called "Oslo.shp" which you can use to test-run the scripts
 1. Run the "Basic_analysis.R" script line-by-line, changing variable names or path directories to your specific work where necessary.
 * Upload the shapefile that was generated in './DATA/For_GEE/' to your GEE Asset
 2. Run the "Environ_data_extract.js" in GEE JavaScript API, changing path directories to your AOI asset. You can copy and paste the script contents into the editor, or follow this code snapshot link: https://code.earthengine.google.com/32ca72b58ddff06c337769df9e5417f8
