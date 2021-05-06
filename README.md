@@ -2,7 +2,7 @@
 A set of scripts to do some basic analysis with STRAVA data in Norway
 
 ### Introduction
-The aim of this repository is to provide reproducible scripts that allow NINA colleagues to do a basic analysis of the STRAVA data and its interaction with environmental data.
+The aim of this repository is to provide reproducible scripts that allow NINA colleagues to do a basic analysis of the STRAVA data and its interaction with environmental data. Please contact Zander Venter (zander.venter@nina.no) if you need more details or you spot any issues with the code.
 
 ### Outputs
 * A sorted and cleaned dataframe of STRAVA activities for your study area
