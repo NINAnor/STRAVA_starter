@@ -129,6 +129,22 @@ hist(totalAgg_norm$tactcnt)
 hist(totalAgg_norm$tactcnt_log)
 
 
+## -- At this point you could swith to QGIS for mapping
+# merge aggregated data with OSM data and write out a Shapefile for each activity
+# first create a folder in ./DATA/ called 'For_GEE'
+
+# pedestrian
+osm_flitered  %>%
+  left_join(totalAgg_norm%>%
+              filter(type == 'ped'), by='edge_id') %>%
+  st_write('./DATA/For_QGIS/STRAVA_month_agg_ped.shp')
+  
+# ride
+osm_flitered  %>%
+  left_join(totalAgg_norm%>%
+              filter(type == 'ride'), by='edge_id') %>%
+  st_write('./DATA/For_QGIS/STRAVA_month_agg_ride.shp')
+
 # Now get a base map
   # You can either use Google base maps or you can use Stamen maps - skip to line below with stamen_base
   # for this you need an API key which requires a credit card.
@@ -202,9 +218,6 @@ ggmap(stamen_base,# Here you can replace with the google one to compare
 
 # Click Export in plot console and define dimensions - here you can use 750 x 900
 
-## OR - export to shapefile and do it in QGIS if you want!
-toPlot %>%
-  st_write('./DATA/for_map_QGIS.shp')
 
 
 
