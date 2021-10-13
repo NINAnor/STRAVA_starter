@@ -26,6 +26,9 @@ osm <- st_read(paste0(mastDir, 'Shapefiles/norway_osm_20191217.shp')) %>%
   # here I am using Oslo as an example
 aoi <- st_read('./DATA/oslo.shp')
 
+# Make sure the crs of the AOI matches that of OSM
+aoi <- st_transform(aoi, crs = st_crs(osm))
+
 # Filter OSM segments for those that intersect with your AOI and then clip them
 osm_flitered <- osm %>% 
   filter(st_intersects(geometry, aoi, sparse = FALSE)) %>% 
