@@ -26,9 +26,15 @@ osm <- st_read(paste0(mastDir, 'Shapefiles/norway_osm_20191217.shp')) %>%
   # here I am using Oslo as an example
 aoi <- st_read('./DATA/oslo.shp')
 
-# Filter OSM segments for those that intersect with your AOI
+# Filter OSM segments for those that intersect with your AOI and then clip them
 osm_flitered <- osm %>% 
-  filter(st_intersects(geometry, aoi, sparse = FALSE))
+  filter(st_intersects(geometry, aoi, sparse = FALSE)) %>% 
+  st_intersection(aoi)
+
+# Check to see if the OSM shapefile has been clipped to your AOI
+ggplot() + 
+  geom_sf(data=osm_flitered) + 
+  geom_sf(data=aoi, fill=NA, color='red')
 
 # Write out for upload to Google Earth Engine
   # See 'Environ_data_extract.js' script for GEE data export
@@ -62,6 +68,7 @@ for (i in 1:length(months)){
   fileDir <- paste0(mastDirRide, 'norway_south_20190101_20191231_ride_rollup_month_2019_',i,'_total.csv')
   print(fileDir)
   newDat <- read_csv(fileDir,guess_max =100000) %>%
+    filter(edge_id %in% segSelect) %>%
     dplyr::select(edge_id, tactcnt)%>%
     mutate(month = i)
   
@@ -76,6 +83,7 @@ for (i in 1:length(months)){
   fileDir <- paste0(mastDirPed, 'norway_20190101_20191231_ped_rollup_month_2019_',i,'_total.csv')
   print(fileDir)
   newDat <- read_csv(fileDir,guess_max =100000)%>%
+    filter(edge_id %in% segSelect) %>%
     dplyr::select(edge_id, tactcnt) %>%
     mutate(month = i)
   
@@ -144,6 +152,7 @@ osm_flitered  %>%
   left_join(totalAgg_norm%>%
               filter(type == 'ride'), by='edge_id') %>%
   st_write('./DATA/For_QGIS/STRAVA_month_agg_ride.shp')
+
 
 # Now get a base map
   # You can either use Google base maps or you can use Stamen maps - skip to line below with stamen_base
@@ -218,6 +227,6 @@ ggmap(stamen_base,# Here you can replace with the google one to compare
 
 # Click Export in plot console and define dimensions - here you can use 750 x 900
 
-
-
-
+## OR - export to shapefile and do it in QGIS if you want!
+toPlot %>%
+  st_write('./DATA/for_map_QGIS.shp')
