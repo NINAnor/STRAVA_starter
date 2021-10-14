@@ -148,13 +148,13 @@ hist(totalAgg_norm$tactcnt_log)
 osm_flitered  %>%
   left_join(totalAgg_norm%>%
               filter(type == 'ped'), by='edge_id') %>%
-  st_write('./DATA/For_QGIS/STRAVA_month_agg_ped.shp')
+  st_write('./DATA/For_QGIS/STRAVA_agg_ped_2019.shp')
   
 # ride
 osm_flitered  %>%
   left_join(totalAgg_norm%>%
               filter(type == 'ride'), by='edge_id') %>%
-  st_write('./DATA/For_QGIS/STRAVA_month_agg_ride.shp')
+  st_write('./DATA/For_QGIS/STRAVA_agg_ride_2019.shp')
 
 
 # Now get a base map
