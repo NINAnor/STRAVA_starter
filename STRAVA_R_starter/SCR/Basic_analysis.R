@@ -109,6 +109,26 @@ nrow(monthAgg) # data size
 hist(monthAgg$tactcnt) # hist of activity across months and osm segments
 hist(monthAgg$month) # spread data availability over months
 
+# If you want to sum activities over trail segments you should account for the length of the trails
+  # you can calculate the total activity kilometers for a given area
+  # in this case we will use the entire AOI for aggregation, but this could be done for 
+  # smaller spatial units
+areaMonthAgg <- monthAgg %>%
+  left_join(osm, by='edge_id') %>%
+  mutate(actKms = tactcnt*km) %>%
+  group_by(month, type) %>%
+  # we can get the total activity kms, total kms
+  summarise(actKmsTot = sum(actKms),
+            totKms = sum(km)) %>%
+  # we can also assume an average person performs a 10km activity 
+  # and estimate the numer of unique "trips"
+  mutate(trips = actKmsTot/10)
+
+# Plot these total trips per month and activity type
+areaMonthAgg %>%
+  ggplot(aes(x=month, y=trips, fill = type)) +
+  geom_bar(stat= 'identity', position='dodge')
+
 # You can write it out to the data folder if you want
   # maybe only necessary if the above steps took a long time to run and you don't want to do it
   # each time you run this script
